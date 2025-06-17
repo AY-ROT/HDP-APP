@@ -2,6 +2,21 @@
 import streamlit as st
 st.set_page_config(page_title="Heart Disease Predictor", layout="centered")
 
+# ✅ Force white background
+st.markdown(
+    """
+    <style>
+        body {
+            background-color: white !important;
+        }
+        .stApp {
+            background-color: white !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Core imports
 import pandas as pd
 import numpy as np
