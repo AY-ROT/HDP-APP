@@ -55,21 +55,52 @@ st.markdown("Welcome to the **Heart Disease Predictor**, powered by a trained Lo
 # -------------------- Tabs --------------------
 tab1, tab2, tab3 = st.tabs(["🔍 Single Prediction", "📂 Bulk Prediction", "📊 Model Info"])
 
-# ----------- TAB 1: Single Patient Prediction -----------
+# ----------- TAB 1: Single Patient Prediction (Updated with Descriptions) -----------
 with tab1:
     st.subheader("Patient Information")
+    st.markdown("Please fill in the following details about the patient. Each field has a description to guide you.")
 
-    age = st.number_input("Age", 0, 120)
-    sex = st.radio("Sex", ["Male", "Female"])
-    chest_pain = st.selectbox("Chest Pain Type", ["Typical Angina", "Atypical Angina", "Non-Anginal Pain", "Asymptomatic"])
-    resting_bp = st.number_input("Resting Blood Pressure (mmHg)", 0, 300)
-    cholesterol = st.number_input("Cholesterol (mg/dL)", 0)
-    fasting_bs = st.radio("Fasting Blood Sugar", ["<= 120 mg/dl", "> 120 mg/dl"])
-    resting_ecg = st.selectbox("Resting ECG", ["Normal", "ST-T Wave Abnormality", "Left Ventricular Hypertrophy"])
-    max_hr = st.number_input("Maximum Heart Rate", 60, 220)
-    exercise_angina = st.radio("Exercise-Induced Angina", ["No", "Yes"])
-    oldpeak = st.number_input("Oldpeak (ST Depression)", 0.0, 10.0)
-    st_slope = st.selectbox("ST Slope", ["Upsloping", "Flat", "Downsloping"])
+    age = st.number_input("Age", 0, 120, help="Enter the patient's age in years.")
+    sex = st.radio("Sex", ["Male", "Female"], help="Select the biological sex of the patient.")
+    chest_pain = st.selectbox(
+        "Chest Pain Type", 
+        ["Typical Angina", "Atypical Angina", "Non-Anginal Pain", "Asymptomatic"],
+        help="""Choose the type of chest pain:
+        - Typical Angina: Predictable chest pain during exertion  
+        - Atypical Angina: Unpredictable chest pain  
+        - Non-Anginal Pain: Chest pain not related to the heart  
+        - Asymptomatic: No chest pain at all"""
+    )
+    resting_bp = st.number_input("Resting Blood Pressure (mmHg)", 0, 300, help="The patient’s blood pressure when resting, in mmHg.")
+    cholesterol = st.number_input("Cholesterol (mg/dL)", 0, help="The level of cholesterol in the blood (mg/dL).")
+    fasting_bs = st.radio(
+        "Fasting Blood Sugar", 
+        ["<= 120 mg/dl", "> 120 mg/dl"],
+        help="Was the patient's fasting blood sugar above 120 mg/dl? Choose '> 120 mg/dl' if yes."
+    )
+    resting_ecg = st.selectbox(
+        "Resting ECG", 
+        ["Normal", "ST-T Wave Abnormality", "Left Ventricular Hypertrophy"],
+        help="""Result of resting electrocardiogram:
+        - Normal: No abnormality  
+        - ST-T Wave Abnormality: Minor changes in ECG  
+        - Left Ventricular Hypertrophy: Thickened heart wall"""
+    )
+    max_hr = st.number_input("Maximum Heart Rate", 60, 220, help="The highest heart rate recorded during exercise.")
+    exercise_angina = st.radio(
+        "Exercise-Induced Angina", 
+        ["No", "Yes"],
+        help="Did the patient experience chest pain due to exercise?"
+    )
+    oldpeak = st.number_input("Oldpeak (ST Depression)", 0.0, 10.0, help="ST depression induced by exercise, indicating possible blockage.")
+    st_slope = st.selectbox(
+        "ST Slope", 
+        ["Upsloping", "Flat", "Downsloping"],
+        help="""The slope of the ST segment during exercise:
+        - Upsloping: Normal  
+        - Flat: Could indicate a problem  
+        - Downsloping: Often associated with heart issues"""
+    )
 
     if st.button("🧠 Predict"):
         data = encode_input(age, sex, chest_pain, resting_bp, cholesterol, fasting_bs,
